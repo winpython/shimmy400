@@ -3,7 +3,7 @@ Windows Executable Link Stubs
 
 This project allows the creation of Windows "executable stubs" - exe files
 that when run, execute a defined command, passing the command line arguments
-on to the subcommand, and optionally forcing a sub-directory from where the icon ise
+on to the subcommand, and optionally forcing a sub-directory from where the icon is located.
 
 It is derived from initial commit of project //github.com/pfmoore/shimmy of Paul Moore
 to replace Nullsoft in WinPython project as the creator of icon launchers.
