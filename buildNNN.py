@@ -28,6 +28,11 @@ def main():
     MARKER = ('X' * max_limit).encode('utf-16le')
     if MARKER not in stub:
         raise ValueError(f"Invalid stub: no marker bytes of size {args.max_limit}")
+    # add the sub-directory option
+    markerdirectory = ('Y' * max_limit).encode('utf-16le')
+    if markerdirectory not in stub:
+        raise ValueError(f"Invalid stub: no markerdirectory bytes of size {args.max_limit}")  
+        
     stub_txt = base64.b64encode(stub).decode('ASCII')
     with open(args.templatefile) as template:
         script = template.read()
