@@ -10,12 +10,15 @@
 #include <shlwapi.h>
 #include <wchar.h>
 
-/* feature:
+/* feature V03:
  400 = max command line size
- force working directory to .\scripts
+ force optional working directory to a su-directory of icons, like ".\scripts"
  */
 static wchar_t MARKER[] = L"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-static wchar_t SUBDIR[] = L"\\scripts"; // to hack in the future
+
+// v03-20240903: same stub can optionnaly change the working-directory
+//static wchar_t SUBDIR[] = L"\\scripts"; // to hack in the future
+static wchar_t SUBDIR[] = L"YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY";
 /* remark: cl /arch:IA32 for ia32 */
 
 /* Skip a quoted string: on entry, p points just after the opening quote.
@@ -103,14 +106,21 @@ int run_process(wchar_t *args) {
     }
 
     // Append the "scripts" subdirectory: only the 400s
-    //wcscat(path, L"\\scripts");
-    /*
-    wcscat(path, SUBDIR);
-    if (_wchdir(path) == 0) {
-       //printf("Current directory changed to: %ls\n", path);
-    }
-   /**/
+    // v03-20240903: same stub can optionnaly change the working-directory
+    if (SUBDIR[0] != L'Y' &&  SUBDIR[0]==L'.') {
+        // Shift the string one position to the left to remove the "."
+        for (int i = 0; SUBDIR[i] != L'\0'; i++) {
+            SUBDIR[i] = SUBDIR[i + 1];
+        }
+        //wcscat(path, L"\\scripts");
+        wcscat(path, SUBDIR);
+        if (_wchdir(path) == 0) {
+           printf("Current directory changed to: %ls\n", path);
+      } else {
+           fwprintf(stderr, L"Failed to set directory change to: %ls\n . Error code: %d\n", path, GetLastError());
+      }
 
+    }
 
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
