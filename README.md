@@ -48,6 +48,11 @@ example:
 
     mkshim400.py -f my_IDLE_icon.exe -c "powershell.exe start-process -WindowStyle Hidden -FilePath ([dollar]ENV:WINPYDIRICONS + '\scripts\winidle.bat')"
 
+An icon can ba added (if you have pywin32)
+
+example:
+
+    mkshim400.py -f my_IDLE_icon.exe -c "powershell.exe start-process -WindowStyle Hidden -FilePath ([dollar]ENV:WINPYDIRICONS + '\scripts\winidle.bat')" -i "python.ico"
 
 It is possible to have the supplied arguments inserted somewhere other than
 at the end of the line, by including `%s` in the command string. The arguments
