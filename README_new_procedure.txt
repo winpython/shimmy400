@@ -29,5 +29,5 @@ typical build use for WinPython:
 * example to create manually an executable launcher:
    python mkshim400.py -f my_IDLE_icon.exe -c "powershell.exe start-process -WindowStyle Hidden -FilePath ([dollar]ENV:WINPYDIRICONS + '\scripts\winidle.bat')"
    python mkshim400.py -f "my_ControlPanel_ICON.exe" -c ".\wpcp.bat" --subdir ".\scripts"
-* the addition of an icon is for now a post-production step in make.py:
-   updateExecutableIcon(launcher_name, icon_path)
+* the addition of an icon is now included, but requires pywin32:
+   python mkshim400.py -f "my_ControlPanel_ICON.exe" -c ".\wpcp.bat" --subdir ".\scripts" -i "python.ico"
