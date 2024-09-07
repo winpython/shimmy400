@@ -48,7 +48,7 @@ example:
 
     mkshim400.py -f my_IDLE_icon.exe -c "powershell.exe start-process -WindowStyle Hidden -FilePath ([dollar]ENV:WINPYDIRICONS + '\scripts\winidle.bat')"
 
-An icon can ba added (if you have pywin32)
+An icon can be added (if you have pywin32)
 
 example:
 
