@@ -1,4 +1,4 @@
-redone from project https://github.com/pfmoore/shimmy initial commit of 2024-01-26
+redone from project https://github.com/pfmoore/shimmy initial commit of 2014-01-26
 post-production icon Addition from https://gist.github.com/flyx/2965682 example
 
 change: v03
